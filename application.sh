@@ -6,22 +6,22 @@
 mkdir $BARE_DIR $APP_DIR $LOG_DIR $TMP_DIR
 
 # Create bare repository
-cd $BARE_DIR
-git init $BARE_DIR --bare
+git -C $BARE_DIR init --bare
 
 # Install deploy hook
-cp $PWD/post-receive.0 hooks/
+cp post-receive.0 $BARE_DIR/hooks/
+chmod +x $BARE_DIR/hooks/post-receive.0
 
 # Create application directory
-cd $APP_DIR
-git init
-git remote add origin $BARE_DIR
+git -C $APP_DIR init
+git -C $APP_DIR remote add origin $BARE_DIR
 
 # Clone and install ruby-build
 # ruby-build help us build Ruby from source with ease
 git clone git://github.com/sstephenson/ruby-build.git /tmp/ruby-build
 cd /tmp/ruby-build
 bash install.sh
+cd -
 
 # Clone and setup rbenv
 # rbenv help us handle your Ruby environment
