@@ -55,8 +55,5 @@ echo
 echo "Application repository:"
 echo "=> $YOUR_USERNAME@$(curl -s icanhazip.com):git"
 echo
-echo "Database:"
-echo "=> postgres://..."
-echo
 
 read -p "Take note of the information above and press [enter] to continue..."
