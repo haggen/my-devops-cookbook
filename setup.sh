@@ -5,6 +5,9 @@ set -ue
 # Read configuration variables
 source config.sh
 
+# Save current path
+PWD=$(pwd)
+
 # Set locale
 locale-gen en_US en_US.UTF-8
 dpkg-reconfigure locales
@@ -27,3 +30,5 @@ source database.sh
 # Setup Git, Ruby and Rails
 source application.sh
 
+echo
+echo "Done! Please restart SSH..."

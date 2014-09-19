@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-[[ "$0" == "config.sh" ]] && echo "This script cannot be called directly, use `setup.sh`" && exit 1
+[[ "$0" == "config.sh" ]] && echo "This script cannot be called directly, use 'setup.sh'" && exit 1
 
 # Which password would you like to use for `root` user ?
-ROOT_PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 32)
+ROOT_PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 64)
 
 # What username would you like to use ?
-YOUR_USERNAME=""
+YOUR_USERNAME="app"
 
 # And what password would you like to use ?
-YOUR_PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 32)
+YOUR_PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 64)
 
 # What's the home directory for this user ?
 HOME=/home/$YOUR_USERNAME
@@ -31,10 +31,16 @@ EXTRA_PACKAGES=""
 RUBY_VERSION=2.1.2
 
 # What directory should be used for application ?
-APPLICATION_DIR=$HOME/app
+APP_DIR=$HOME/app
 
 # What directory should be used for the bare repository ?
-REPOSITORY_DIR=$HOME/git
+BARE_DIR=$HOME/git
+
+# What directory should be used for the application processes logs ?
+LOG_DIR=$HOME/log
+
+# ...
+TMP_DIR=$HOME/tmp
 
 # -
 

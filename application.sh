@@ -1,20 +1,27 @@
 #!/usr/bin/env bash
 
-[[ "$0" == "application.sh" ]] && echo "This script cannot be called directly, use `setup.sh`" && exit 1
+[[ "$0" == "application.sh" ]] && echo "This script cannot be called directly, use 'setup.sh'" && exit 1
+
+# Create application directories
+mkdir $BARE_DIR $APP_DIR $LOG_DIR $TMP_DIR
 
 # Create bare repository
-mkdir $HOME/git && cd $HOME/git && git init --bare
+cd $BARE_DIR
+git init $BARE_DIR --bare
+
+# Install deploy hook
+cp $PWD/post-receive.0 hooks/
 
 # Create application directory
-mkdir $HOME/app && cd $HOME/app && git init && git remote add origin $HOME/git
-
-# Create log directory
-mkdir $HOME/log
+cd $APP_DIR
+git init
+git remote add origin $BARE_DIR
 
 # Clone and install ruby-build
 # ruby-build help us build Ruby from source with ease
 git clone git://github.com/sstephenson/ruby-build.git /tmp/ruby-build
-cd /tmp/ruby-build && ./install.sh
+cd /tmp/ruby-build
+bash install.sh
 
 # Clone and setup rbenv
 # rbenv help us handle your Ruby environment

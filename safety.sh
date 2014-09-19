@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[[ "$0" == "safety.sh" ]] && echo "This script cannot be called directly, use `setup.sh`" && exit 1
+[[ "$0" == "safety.sh" ]] && echo "This script cannot be called directly, use 'setup.sh'" && exit 1
 
 # Update machine hostname
 echo $HOSTNAME > /etc/hostname
