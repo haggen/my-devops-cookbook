@@ -9,7 +9,7 @@ echo $HOSTNAME > /etc/hostname
 chpasswd <<< "root:$ROOT_PASSWORD"
 
 # Create your user unless it already exists
-[[ id -u $YOUR_USERNAME > /dev/null 2>&1 ]] && useradd -d $HOME -m $YOUR_USERNAME
+useradd -d $HOME -m $YOUR_USERNAME
 
 # Update your user's password
 chpasswd <<< "$YOUR_USERNAME:$YOUR_PASSWORD"
