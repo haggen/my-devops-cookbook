@@ -59,6 +59,4 @@ echo "Database:"
 echo "=> postgres://..."
 echo
 
-read -p "Take note of the information above and press [return] to continue..."
-
-exit 1
+read -p "Take note of the information above and press [enter] to continue..."
