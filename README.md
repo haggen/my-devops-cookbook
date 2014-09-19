@@ -60,29 +60,31 @@ As of this time, the software I use is:
 
 First things first, you just installed the OS then what ?
 
-✔ `root` password was changed ?
-✔ SSH is configured correctly ?
-✔ Required ports are allowed in the firewall ?
-✔ Required directories were created with proper permisions ?
-✔ Required software was installed ?
-✔ ...
+- ✔ `root` password was changed ?
+- ✔ SSH is configured correctly ?
+- ✔ Required ports are allowed in the firewall ?
+- ✔ Required directories were created with proper permisions ?
+- ✔ Required software was installed ?
+- ✔ ...
 
 All the items above are covered upon running `$ bash setup.sh`.
 
 ## Deploy checklist
 
-✔ Code was commited and merged successfully ?
-✔ Migration's been ran successfully ?
-✔ Assets' been pre-compiled successfully ?
-✔ ...
+- ✔ Code was commited and merged successfully ?
+- ✔ Migration's been ran successfully ?
+- ✔ Assets' been pre-compiled successfully ?
+- ✔ ...
 
-## Scripts
+## Files
 
 - config.sh
 - setup.sh
 - safety.sh
 - database.sh
 - application.sh
+- post-receive.0
+- hostnames.txt
 
 ## License
 
