@@ -2,26 +2,23 @@
 
 set -ue
 
-# Needed to work in another repository
-unset GIT_DIR
-
 # Go to where's the application
 cd $HOME/app
 
-# Avoid merge conflicts and pull changes
-git reset --hard && git pull $HOME/git master
+# Avoid merge conflicts
+git -C $HOME/app reset --hard
 
-# Set Rails environment
-export RAILS_ENV=production
+# Update codebase
+git -C $HOME/app pull $HOME/git master
 
 # Install dependencies in vendor/bundle
 bundle install --deployment --without=development:doc
 
 # Run pending migrations
-bundle exec rake db:migrate
+foreman run bundle exec rake db:migrate
 
 # Pre-compile static assets
-bundle exec rake assets:precompile
+foreman run bundle exec rake assets:precompile
 
 # (Re)Export upstart process
 foreman export upstart -l $HOME/log
