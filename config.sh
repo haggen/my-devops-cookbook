@@ -15,8 +15,7 @@ YOUR_PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 64)
 HOME=/home/$YOUR_USERNAME
 
 # What public key should be authorized for remote access ?
-YOUR_PUBLIC_KEY=<<TEXT
-TEXT
+YOUR_PUBLIC_KEY=''
 
 # What ports should be allowed in the firewall ?
 PORTS="22 80 443"
