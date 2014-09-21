@@ -15,7 +15,10 @@ useradd -d $HOME -m $YOUR_USERNAME
 chpasswd <<< "$YOUR_USERNAME:$YOUR_PASSWORD"
 
 # Add your public key to authorized keys list
-mkdir $HOME/.ssh && echo "$YOUR_PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
+mkdir $HOME/.ssh; echo "$YOUR_PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
+
+# Fix permissions for SSH connection to work
+chown -R $YOUR_USERNAME:$YOUR_USERNAME $HOME
 
 # Allow ports on firewall
 for P in $PORTS; do
