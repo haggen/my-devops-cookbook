@@ -31,16 +31,23 @@ git clone https://github.com/sstephenson/rbenv.git $HOME/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bash_profile
 echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
 
+# Load rbenv here
 source $HOME/.bash_profile
 
-# Install required Ruby version and set it as default
-rbenv install $RUBY_VERSION && rbenv global $RUBY_VERSION
+# Install Ruby
+rbenv install $RUBY_VERSION
+
+# Set default Ruby version
+rbenv global $RUBY_VERSION
 
 # Install required Gems
-gem install bundler rails passenger
+gem install bundler passenger
 
 # Make rbenv detect new executables
 rbenv rehash
 
 # Run Passenger+Nginx setup
 passenger-install-nginx-module
+
+# Fix permissions
+chown -R $YOUR_USERNAME:$YOUR_USERNAME $HOME
