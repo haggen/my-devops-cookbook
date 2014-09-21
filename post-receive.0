@@ -9,7 +9,7 @@ cd $HOME/app
 git -C $HOME/app reset --hard
 
 # Update codebase
-git -C $HOME/app pull $HOME/git master
+git -C $HOME/app pull origin master
 
 # Install dependencies in vendor/bundle
 bundle install --deployment --without=development:doc
