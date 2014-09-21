@@ -16,7 +16,7 @@ apt-get update
 apt-get -y upgrade
 
 # Install required packages
-apt-get install -y build-essential git $EXTRA_PACKAGES
+apt-get install -y build-essential git libssl-dev libcurl4-openssl-dev $EXTRA_PACKAGES
 
 # Setup basic security
 source safety.sh
