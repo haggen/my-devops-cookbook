@@ -46,8 +46,8 @@ gem install bundler passenger
 # Make rbenv detect new executables
 rbenv rehash
 
-# Run Passenger+Nginx setup
-passenger-install-nginx-module
-
 # Fix permissions
 chown -R $YOUR_USERNAME:$YOUR_USERNAME $HOME
+
+# Run Passenger+Nginx setup
+passenger-install-nginx-module
