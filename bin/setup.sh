@@ -10,7 +10,7 @@ exec > >(tee setup.log)
 exec 2>&1
 
 # Require
-source _config.sh
+source _configuration.sh
 
 # Set locale
 locale-gen en_US en_US.UTF-8
@@ -26,7 +26,7 @@ apt-get -y upgrade
 apt-get install -y build-essential git libssl-dev libcurl4-openssl-dev $EXTRA_PACKAGES
 
 # Setup basic security
-source _safety.sh
+source _security.sh
 
 # Setup PostgreSQL and Redis
 source _database.sh
