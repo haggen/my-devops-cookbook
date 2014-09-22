@@ -5,14 +5,14 @@ mkdir $REPOSITORY_PATH $APPLICATION_PATH $LOG_PATH $TMP_PATH
 
 # Copy default .env to app directory
 # Note: remember to add .env to your .gitignore
-cp ../app/env.0 $APPLICATION_PATH/.env
+cp ../app/env.rails $APPLICATION_PATH/.env
 
 # Create bare repository
 git -C $REPOSITORY_PATH init --bare
 
 # Install deploy hook
-cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/
-chmod +x $REPOSITORY_PATH/hooks/post-receive.0
+cp ../git/hooks/post-receive.rails $REPOSITORY_PATH/hooks/
+chmod +x $REPOSITORY_PATH/hooks/post-receive.rails
 
 # Create application directory
 git -C $APPLICATION_PATH init
@@ -51,12 +51,16 @@ rbenv rehash
 # Fix permissions
 chown -R $USERNAME:$USERNAME $HOME
 
-# Run Passenger+Nginx setup
-passenger-install-nginx-module --auto
+# If the machine has less then aprox. 1Gb of RAM, swap is needed for Passenger setup
+if [[ $(free | awk '/^Mem:/{print $2}') -lt 900000 ]]; then
+  dd if=/dev/zero of=/swap bs=1M count=1024
+  mkswap /swap
+  swapon /swap
+fi
+
+# Run Passenger Nginx module setup
+passenger-install-nginx-module --auto --auto-download --extra-configure-flags=none --languages ruby --prefix=/opt/nginx
 
 # Configure nginx
 # TODO: Use a modified version of h5bp nginx config files
 #       https://github.com/h5bp/server-configs-nginx
-
-# Start nginx service
-service nginx start

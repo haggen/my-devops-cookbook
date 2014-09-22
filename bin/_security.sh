@@ -37,4 +37,4 @@ echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 echo "AllowUsers $USERNAME" >> /etc/ssh/sshd_config
 
 # Restart SSH
-service restart ssh
+service ssh restart
