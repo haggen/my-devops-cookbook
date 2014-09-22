@@ -22,7 +22,7 @@ read -p "Paste your public key:" PUBLIC_KEY
 PORTS="22 80 443"
 
 # Let's give a nice and familiar name to this server.
-HOSTNAME=$(shuf -n 1 $CWD/txt/hostnames.txt)
+HOSTNAME=$(shuf -n 1 ../txt/hostnames.txt)
 
 # What extra packages should be installed ?
 EXTRA_PACKAGES=""
