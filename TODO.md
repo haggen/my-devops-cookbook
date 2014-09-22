@@ -6,6 +6,7 @@
 - [ ] Auto-deploy with post-receive Git hook
 - [ ] Nginx configuration from H5BP
 - [ ] Less verbosity
+- [ ] Setup scripts should check missing configuration
 - [ ] Database URI should use chosen username
 - [ ] Split setup into even smaller chunks
 - [ ] Expanded guides
