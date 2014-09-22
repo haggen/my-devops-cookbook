@@ -2,6 +2,9 @@
 
 set -ue
 
+# Read Git hook parameters
+read OLD_REVISION NEW_REVISION REFNAME
+
 # Load user's profile
 source $HOME/.bash_profile
 
