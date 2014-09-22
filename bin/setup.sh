@@ -2,15 +2,19 @@
 
 set -ue
 
+# Log everything
+exec > >(tee setup.log)
+exec 2>&1
+
 # Read configuration variables
-source config.sh
+source _config.sh
 
 # Set locale
 locale-gen en_US en_US.UTF-8
 dpkg-reconfigure locales
 
 # Fetch packages source
-apt-get update
+apt-get -y update
 
 # Upgrade currently installed packages
 apt-get -y upgrade
@@ -19,13 +23,13 @@ apt-get -y upgrade
 apt-get install -y build-essential git libssl-dev libcurl4-openssl-dev $EXTRA_PACKAGES
 
 # Setup basic security
-source safety.sh
+source _safety.sh
 
 # Setup PostgreSQL and Redis
-source database.sh
+source _database.sh
 
 # Setup Git, Ruby and Rails
-source application.sh
+source _application.sh
 
 echo
-echo "Done! Please restart SSH..."
+echo "=> Done!"

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-[[ "$0" == "application.sh" ]] && echo "This script cannot be called directly, use 'setup.sh'" && exit 1
-
 # Create application directories
 mkdir $BARE_DIR $APP_DIR $LOG_DIR $TMP_DIR
 
@@ -9,7 +7,7 @@ mkdir $BARE_DIR $APP_DIR $LOG_DIR $TMP_DIR
 git -C $BARE_DIR init --bare
 
 # Install deploy hook
-cp post-receive.0 $BARE_DIR/hooks/
+cp $CWD/git/hooks/post-receive.0 $BARE_DIR/hooks/
 chmod +x $BARE_DIR/hooks/post-receive.0
 
 # Create application directory
@@ -50,4 +48,11 @@ rbenv rehash
 chown -R $YOUR_USERNAME:$YOUR_USERNAME $HOME
 
 # Run Passenger+Nginx setup
-passenger-install-nginx-module
+passenger-install-nginx-module --auto
+
+# Configure nginx
+# TODO: Use a modified version of h5bp nginx config files
+#       https://github.com/h5bp/server-configs-nginx
+
+# Start nginx service
+service nginx start

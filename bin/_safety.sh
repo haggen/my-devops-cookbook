@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-[[ "$0" == "safety.sh" ]] && echo "This script cannot be called directly, use 'setup.sh'" && exit 1
-
 # Update machine hostname
 echo $HOSTNAME > /etc/hostname
 
@@ -9,13 +7,13 @@ echo $HOSTNAME > /etc/hostname
 chpasswd <<< "root:$ROOT_PASSWORD"
 
 # Create your user unless it already exists
-useradd -d $HOME -m $YOUR_USERNAME
+useradd -d $HOME -m -s /bin/bash $YOUR_USERNAME
 
 # Update your user's password
 chpasswd <<< "$YOUR_USERNAME:$YOUR_PASSWORD"
 
 # Add your public key to authorized keys list
-mkdir $HOME/.ssh; echo "$YOUR_PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
+mkdir $HOME/.ssh; echo "$PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
 
 # Fix permissions for SSH connection to work
 chown -R $YOUR_USERNAME:$YOUR_USERNAME $HOME
@@ -33,6 +31,10 @@ apt-get install -y fail2ban
 
 # Configure remote access
 # SSH need to be restarted, but if we do it now you'll lose the connection
+echo >> /etc/ssh/sshd_config
 echo "PermitRootLogin no" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 echo "AllowUsers $YOUR_USERNAME" >> /etc/ssh/sshd_config
+
+# Restart SSH
+service restart ssh

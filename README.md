@@ -6,7 +6,7 @@
 
 This is a **work in progress**.
 
-This document along with all files within its directory comprise a guide, reference sheet
+This document along with all files within its directory comprise guides, reference sheets
 and automation scripts to setup, deploy and maintain Rails applications.
 
 ### Disclaimer:
@@ -17,27 +17,15 @@ and automation scripts to setup, deploy and maintain Rails applications.
 
 ### Word of caution:
 
-- Customize the configuration variables in `config.sh` to suit your needs.
+- Customize the configuration variables in `bin/_config.sh` to suit your needs.
 - Take a moment to read all the scripts and make sure it comply with your expectations.
 - Don't run ANY of the scripts unattended, they may require interaction at times and/or get errors.
 - These scripts weren NOT tested outside the software stack mentioned below.
 
-### Reference:
-
-You participated in writing or publishing any of the links below ? Thank you, you're awesome. ;)
-
-- https://github.com/h5bp/server-configs-nginx
-- http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers
-- http://robmclarty.com/blog/how-to-setup-a-production-server-for-rails-4
-- http://robmclarty.com/blog/how-to-deploy-a-rails-4-app-with-git-and-capistrano
-- https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres
-- https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
-- https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04
-
 ### Collaboration
 
 If you want to talk about this project, suggest improvements or raise concerns please do so;
-open an issue, send pull requests or simply reach me through arthur (at) corenzan (dot) com.
+open an issue, send pull requests or simply reach me through arthur@corenzan.com.
 
 ## Stack
 
@@ -51,41 +39,19 @@ As of this time, the software I use is:
 - [PostgreSQL 9+](http://www.postgresql.org)
 - [Redis 2+](http://redis.io)
 - [Foreman](https://github.com/ddollar/foreman) (for daemonization)
-- *shell (to automate)
+- *shell (for automation)
 - [Mandrill](https://mandrillapp.com/) (for email)
 - [Amazon S3](http://aws.amazon.com/s3) (for storage)
 - Any DNS service
 
-## Setup checklist
+### Reference:
 
-First things first, you just installed the OS then what ?
+You participated in writing or publishing any of the links below ? Thank you, you're awesome. ;)
 
-- ✔ `root` password was changed ?
-- ✔ SSH is configured correctly ?
-- ✔ Required ports are allowed in the firewall ?
-- ✔ Required directories were created with proper permisions ?
-- ✔ Required software was installed ?
-- ✔ ...
-
-All the items above are covered upon running `$ bash setup.sh`.
-
-## Deploy checklist
-
-- ✔ Code was commited and merged successfully ?
-- ✔ Migration's been ran successfully ?
-- ✔ Assets' been pre-compiled successfully ?
-- ✔ ...
-
-## Files
-
-- config.sh
-- setup.sh
-- safety.sh
-- database.sh
-- application.sh
-- post-receive.0
-- hostnames.txt
-
-## License
-
-See LICENSE
+- https://github.com/h5bp/server-configs-nginx
+- http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers
+- http://robmclarty.com/blog/how-to-setup-a-production-server-for-rails-4
+- http://robmclarty.com/blog/how-to-deploy-a-rails-4-app-with-git-and-capistrano
+- https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres
+- https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
+- https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04
