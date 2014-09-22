@@ -3,6 +3,10 @@
 # Create application directories
 mkdir $BARE_DIR $APP_DIR $LOG_DIR $TMP_DIR
 
+# Copy default .env to app directory
+# Note: remember to add .env to your .gitignore
+cp $CWD/app/env.0 $APP_DIR/.env
+
 # Create bare repository
 git -C $BARE_DIR init --bare
 
