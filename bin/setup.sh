@@ -2,6 +2,9 @@
 
 set -ue
 
+# Time whole thing
+TIME=$(date +%s)
+
 # Go to where the scripts are
 cd $(dirname $0)
 
@@ -23,7 +26,7 @@ apt-get -y update
 apt-get -y upgrade
 
 # Install required packages
-apt-get install -y build-essential git nodejs npm libssl-dev libcurl4-openssl-dev $EXTRA_PACKAGES
+apt-get install -y $PACKAGES
 
 # Setup basic security
 source _security.sh
@@ -35,4 +38,4 @@ source _database.sh
 source _application.sh
 
 echo
-echo "=> Done!"
+echo "=> Done in $(($(date +%s) - TIME))s"

@@ -24,11 +24,14 @@ PORTS="22 80 443"
 # Let's give a nice and familiar name to this server.
 HOSTNAME=$(shuf -n 1 ../txt/hostnames.txt)
 
-# What extra packages should be installed ?
-EXTRA_PACKAGES=""
+# What packages should be installed ?
+PACKAGES="build-essential git nodejs npm libssl-dev libcurl4-openssl-dev libreadline-dev"
 
 # What version of Ruby should be installed ?
 RUBY_VERSION=2.1.2
+
+# What Gems should be installed ?
+GEMS="bundler rails foreman passenger"
 
 # What directory should be used for application ?
 APPLICATION_PATH=$HOME/app
@@ -55,17 +58,11 @@ echo "Your user information:"
 echo "=> $USERNAME"
 echo "=> $PASSWORD"
 echo
-echo "Database URI:"
+echo "Database:"
 echo "=> postgres://app@localhost/app_production"
 echo
 echo "Application repository:"
 echo "=> $USERNAME@$IP:git"
-echo
-echo "Application directory:"
-echo "=> $APPLICATION_PATH"
-echo
-echo "Allowed ports:"
-echo "=> $PORTS"
 echo
 
 read -p "Take note of the information above and press [enter] to continue..."

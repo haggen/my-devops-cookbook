@@ -1,54 +1,46 @@
 #!/usr/bin/env bash
 
-# Create application directories
+# Create directories for application, repository, logs and temporary files
 mkdir $REPOSITORY_PATH $APPLICATION_PATH $LOG_PATH $TMP_PATH
 
 # Copy default .env to app directory
 # Note: remember to add .env to your .gitignore
-cp ../app/env.rails $APPLICATION_PATH/.env
+cp ../app/env $APPLICATION_PATH/.env
 
 # Create bare repository
 git -C $REPOSITORY_PATH init --bare
 
-# Install deploy hook
-cp ../git/hooks/post-receive.rails $REPOSITORY_PATH/hooks/
-chmod +x $REPOSITORY_PATH/hooks/post-receive.rails
+# Copy deploy hook and add execute permission
+cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/post-receive.0
+chmod +x $REPOSITORY_PATH/hooks/post-receive.0
 
 # Create application directory
 git -C $APPLICATION_PATH init
 git -C $APPLICATION_PATH remote add origin $REPOSITORY_PATH
 
 # Clone and install ruby-build
-# ruby-build help us build Ruby from source with ease
 git clone git://github.com/sstephenson/ruby-build.git /tmp/ruby-build
 cd /tmp/ruby-build
 bash install.sh
 cd -
 
 # Clone and setup rbenv
-# rbenv help us handle your Ruby environment
 git clone https://github.com/sstephenson/rbenv.git $HOME/.rbenv
 
-# Configure rbenv
+# Add rbenv initialization to user's bash profile
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bash_profile
 echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
 
 # Load rbenv here
 source $HOME/.bash_profile
 
-# Install Ruby
-rbenv install $RUBY_VERSION
-
-# Set default Ruby version
-rbenv global $RUBY_VERSION
+# Install required version of Ruby and set it to default
+rbenv install $RUBY_VERSION && rbenv global $RUBY_VERSION
 
 # Install required Gems
-gem install bundler rails foreman passenger
+gem install $GEMS && rbenv rehash
 
-# Make rbenv detect new executables
-rbenv rehash
-
-# Fix permissions
+# Fix user home permissions
 chown -R $USERNAME:$USERNAME $HOME
 
 # If the machine has less then aprox. 1Gb of RAM, swap is needed for Passenger setup

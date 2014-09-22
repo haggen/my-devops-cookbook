@@ -13,28 +13,21 @@ useradd -d $HOME -m -s /bin/bash $USERNAME
 chpasswd <<< "$USERNAME:$PASSWORD"
 
 # Add your public key to authorized keys list
-mkdir $HOME/.ssh; echo "$PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
-
-# Fix permissions for SSH connection to work
+mkdir $HOME/.ssh
+echo "$PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
 chown -R $USERNAME:$USERNAME $HOME
 
-# Allow ports on firewall
-for P in $PORTS; do
-  ufw allow $P
-done
-
-# Enable firewall
+# Configure ports and enable firewall
+for P in $PORTS; do ufw allow $P; done
 yes | ufw enable
 
-# Install fail2ban
+# fail2ban scans logs for suspicious activity
 apt-get install -y fail2ban
 
 # Configure remote access
-# SSH need to be restarted, but if we do it now you'll lose the connection
 echo >> /etc/ssh/sshd_config
 echo "PermitRootLogin no" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 echo "AllowUsers $USERNAME" >> /etc/ssh/sshd_config
 
-# Restart SSH
 service ssh restart
