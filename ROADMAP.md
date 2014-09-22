@@ -1,4 +1,6 @@
-# Todo
+# Roadmap
+
+This list is not definitve, some items might be dropped at anytime whilst new ones might be included.
 
 - [x] Setup basic security, database and application
 - [x] First draft of documentation and checklists
