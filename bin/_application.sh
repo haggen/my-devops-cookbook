@@ -11,7 +11,7 @@ cp ../app/env $APPLICATION_PATH/.env
 git -C $REPOSITORY_PATH init --bare
 
 # Copy deploy hook and add execute permission
-cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/post-receive.0
+cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/post-receive
 chmod +x $REPOSITORY_PATH/hooks/post-receive.0
 
 # Create application directory
