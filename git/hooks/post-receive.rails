@@ -2,14 +2,20 @@
 
 set -ue
 
+# Load user's profile
+source $HOME/.bash_profile
+
+# Needed for Git work in another repository
+unset GIT_DIR
+
 # Go to where's the application
 cd $HOME/app
 
 # Avoid merge conflicts
-git -C $HOME/app reset --hard
+git reset --hard
 
 # Update codebase
-git -C $HOME/app pull origin master
+git pull origin master
 
 # Install dependencies in vendor/bundle
 bundle install --deployment --without=development:doc
