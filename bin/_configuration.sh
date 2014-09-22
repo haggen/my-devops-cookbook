@@ -1,24 +1,21 @@
 #!/usr/bin/env bash
 
 # Current external IP address
-IP_ADDRESS=$(curl -s icanhazip.com)
-
-# Current working directory
-CWD=$(dirname $0)
+IP=$(curl -s icanhazip.com)
 
 # Which password would you like to use for `root` user ?
 ROOT_PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 64)
 
 # What username would you like to use ?
-YOUR_USERNAME="app"
+USERNAME="app"
 
 # And what password would you like to use ?
-YOUR_PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 64)
+PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 64)
 
 # What's the home directory for this user ?
-HOME=/home/$YOUR_USERNAME
+HOME=/home/$USERNAME
 
-# Ask for user's public key.
+# Your RSA public key will be asked.
 read -p "Paste your public key:" PUBLIC_KEY
 
 # What ports should be allowed in the firewall ?
@@ -34,16 +31,16 @@ EXTRA_PACKAGES=""
 RUBY_VERSION=2.1.2
 
 # What directory should be used for application ?
-APP_DIR=$HOME/app
+APPLICATION_PATH=$HOME/app
 
 # What directory should be used for the bare repository ?
-BARE_DIR=$HOME/git
+REPOSITORY_PATH=$HOME/git
 
 # What directory should be used for the application processes logs ?
-LOG_DIR=$HOME/log
+LOG_PATH=$HOME/log
 
 # ...
-TMP_DIR=$HOME/tmp
+TMP_PATH=$HOME/tmp
 
 # -
 
@@ -55,19 +52,19 @@ echo "Root password:"
 echo "=> $ROOT_PASSWORD"
 echo
 echo "Your user information:"
-echo "=> $YOUR_USERNAME"
-echo "=> $YOUR_PASSWORD"
+echo "=> $USERNAME"
+echo "=> $PASSWORD"
 echo
 echo "Database URI:"
 echo "=> postgres://app@localhost/app_production"
 echo
 echo "Application repository:"
-echo "=> $YOUR_USERNAME@$IP_ADDRESS:git"
+echo "=> $USERNAME@$IP:git"
 echo
 echo "Application directory:"
-echo "=> $HOME/$APP_DIR"
+echo "=> $APPLICATION_PATH"
 echo
-echo "Ports allowed:"
+echo "Allowed ports:"
 echo "=> $PORTS"
 echo
 

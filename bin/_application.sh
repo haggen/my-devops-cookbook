@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 
 # Create application directories
-mkdir $BARE_DIR $APP_DIR $LOG_DIR $TMP_DIR
+mkdir $REPOSITORY_PATH $APPLICATION_PATH $LOG_PATH $TMP_PATH
 
 # Copy default .env to app directory
 # Note: remember to add .env to your .gitignore
-cp $CWD/app/env.0 $APP_DIR/.env
+cp ../app/env.0 $APPLICATION_PATH/.env
 
 # Create bare repository
-git -C $BARE_DIR init --bare
+git -C $REPOSITORY_PATH init --bare
 
 # Install deploy hook
-cp $CWD/git/hooks/post-receive.0 $BARE_DIR/hooks/
-chmod +x $BARE_DIR/hooks/post-receive.0
+cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/
+chmod +x $REPOSITORY_PATH/hooks/post-receive.0
 
 # Create application directory
-git -C $APP_DIR init
-git -C $APP_DIR remote add origin $BARE_DIR
+git -C $APPLICATION_PATH init
+git -C $APPLICATION_PATH remote add origin $REPOSITORY_PATH
 
 # Clone and install ruby-build
 # ruby-build help us build Ruby from source with ease
@@ -49,7 +49,7 @@ gem install bundler passenger
 rbenv rehash
 
 # Fix permissions
-chown -R $YOUR_USERNAME:$YOUR_USERNAME $HOME
+chown -R $USERNAME:$USERNAME $HOME
 
 # Run Passenger+Nginx setup
 passenger-install-nginx-module --auto

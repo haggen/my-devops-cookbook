@@ -2,11 +2,14 @@
 
 set -ue
 
+# Go to where the scripts are
+cd $(dirname $0)
+
 # Log everything
 exec > >(tee setup.log)
 exec 2>&1
 
-# Read configuration variables
+# Require
 source _config.sh
 
 # Set locale

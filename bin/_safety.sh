@@ -7,16 +7,16 @@ echo $HOSTNAME > /etc/hostname
 chpasswd <<< "root:$ROOT_PASSWORD"
 
 # Create your user unless it already exists
-useradd -d $HOME -m -s /bin/bash $YOUR_USERNAME
+useradd -d $HOME -m -s /bin/bash $USERNAME
 
 # Update your user's password
-chpasswd <<< "$YOUR_USERNAME:$YOUR_PASSWORD"
+chpasswd <<< "$USERNAME:$PASSWORD"
 
 # Add your public key to authorized keys list
 mkdir $HOME/.ssh; echo "$PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
 
 # Fix permissions for SSH connection to work
-chown -R $YOUR_USERNAME:$YOUR_USERNAME $HOME
+chown -R $USERNAME:$USERNAME $HOME
 
 # Allow ports on firewall
 for P in $PORTS; do
@@ -34,7 +34,7 @@ apt-get install -y fail2ban
 echo >> /etc/ssh/sshd_config
 echo "PermitRootLogin no" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
-echo "AllowUsers $YOUR_USERNAME" >> /etc/ssh/sshd_config
+echo "AllowUsers $USERNAME" >> /etc/ssh/sshd_config
 
 # Restart SSH
 service restart ssh
