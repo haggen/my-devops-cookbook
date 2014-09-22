@@ -41,7 +41,7 @@ As of this time, the software I use is:
 
 ### Usage
 
-```sh
+```shell
 wget https://github.com/haggen/my-devops-cookbook/archive/master.tar.gz
 tar -xzf master.tar.gz
 my-devops-cookbook-master/bin/setup.sh
