@@ -43,7 +43,7 @@ rbenv install $RUBY_VERSION
 rbenv global $RUBY_VERSION
 
 # Install required Gems
-gem install bundler passenger
+gem install bundler rails foreman passenger
 
 # Make rbenv detect new executables
 rbenv rehash
