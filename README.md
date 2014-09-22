@@ -22,12 +22,7 @@ and automation scripts to setup, deploy and maintain Rails applications.
 - Don't run ANY of the scripts unattended, they may require interaction at times and/or get errors.
 - These scripts weren NOT tested outside the software stack mentioned below.
 
-### Collaboration
-
-If you want to talk about this project, suggest improvements or raise concerns please do so;
-open an issue, send pull requests or simply reach me through arthur@corenzan.com.
-
-## Stack
+### Stack
 
 As of this time, the software I use is:
 
@@ -44,7 +39,18 @@ As of this time, the software I use is:
 - [Amazon S3](http://aws.amazon.com/s3) (for storage)
 - Any DNS service
 
-### Reference:
+### Usage
+
+    wget https://github.com/haggen/my-devops-cookbook/archive/master.tar.gz
+    tar -xzf master.tar.gz
+    bash my-devops-cookbook-master/bin/setup.sh
+
+## Collaboration
+
+If you want to talk about this project, suggest improvements or raise concerns please do so;
+open an issue, send pull requests or simply reach me through arthur@corenzan.com.
+
+## Reference:
 
 You participated in writing or publishing any of the links below ? Thank you, you're awesome. ;)
 
