@@ -1,20 +1,22 @@
 # Roadmap
 
-This list is not definitve, some items might be dropped at anytime whilst new ones might be included.
+The list below shows what's already included and what's planned to make into the project, roughly sorted by importance.
 
 - [x] Setup basic security, database and application
 - [x] First draft of documentation and checklists
 - [x] Reorganize project's file
 - [x] Log setup script
+- [x] Setup monitoring with New Relic unix agent
 - [ ] Auto-deploy with post-receive Git hook
 - [ ] Nginx configuration from H5BP
-- [ ] Utility to easily run commands through SSH
-- [ ] Setup scripts should check missing configuration
-- [ ] Database URI should use chosen username
-- [ ] Split setup into even smaller chunks
-- [ ] Expanded guides
-- [ ] Support for more frameworks (Python, PHP, etc.)
+- [ ] Utility to manage env variables over SSH
+- [ ] Utility to run rake tasks over SSH
+- [ ] Split setup into even smaller chunks (makes it more manageable)
+- [ ] Finish checklists
 - [ ] Better documentation
-- [ ] Configuration wizard
+- [ ] Install zsh and oh-my-zsh for the custom user
+- [ ] Scripts should check missing configuration
+- [ ] Rollback Git changes when something in the post-receive hook fails
 - [ ] Use of automation engines (Puppet, Chef, Ansible, etc.)
-- [ ] Install zsh and oh-my-zsh
+- [ ] Configuration wizard
+- [ ] Support for more frameworks (Python, PHP, etc.)

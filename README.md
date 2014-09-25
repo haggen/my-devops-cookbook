@@ -17,7 +17,7 @@ and automation scripts to setup, deploy and maintain Rails applications.
 
 ### Word of caution:
 
-- Customize the configuration variables in `bin/_config.sh` to suit your needs.
+- Customize the configuration variables in `bin/_configuration.sh` to suit your needs.
 - Take a moment to read all the scripts and make sure it comply with your expectations.
 - Don't run ANY of the scripts unattended, they may require interaction at times and/or get errors.
 - These scripts weren NOT tested outside the software stack mentioned below.
@@ -63,3 +63,4 @@ You participated in writing or publishing any of the links below ? Thank you, yo
 - https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres
 - https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
 - https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04
+- https://github.com/gerhard/deliver
