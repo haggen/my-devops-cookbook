@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Update machine hostname
-echo $HOSTNAME > /etc/hostname
+hostname $HOSTNAME
 
 # Update `root` password
 chpasswd <<< "root:$ROOT_PASSWORD"
@@ -16,6 +16,15 @@ chpasswd <<< "$USERNAME:$PASSWORD"
 mkdir $HOME/.ssh
 echo "$PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
 chown -R $USERNAME:$USERNAME $HOME
+
+# ...
+sed -i -r 's/DEFAULT_FORWARD_POLICY=\".+?\"/DEFAULT_FORWARD_POLICY=\"ALLOW\"/' /etc/default/ufw
+
+# ...
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+
+# ...
+iptables-save > /etc/iptables.rules
 
 # Configure ports and enable firewall
 for P in $PORTS; do ufw allow $P; done
