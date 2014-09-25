@@ -16,7 +16,7 @@ PASSWORD=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 64)
 HOME=/home/$USERNAME
 
 # Your RSA public key will be asked.
-read -p "Paste your public key:" PUBLIC_KEY
+read -s -e -p 'Paste your public key: (silenced)' PUBLIC_KEY
 
 # What ports should be allowed in the firewall ?
 PORTS="22 80 443"
@@ -25,7 +25,10 @@ PORTS="22 80 443"
 HOSTNAME=$(shuf -n 1 ../txt/hostnames.txt)
 
 # What packages should be installed ?
-PACKAGES="build-essential git nodejs npm libssl-dev libcurl4-openssl-dev libreadline-dev"
+PACKAGES="build-essential git nodejs npm libssl-dev libcurl4-openssl-dev libreadline-dev newrelic-sysmond"
+
+# New Relic license key
+read -s -e -p 'Paste your New Relic license: (silenced)' NEW_RELIC_LICENSE
 
 # What version of Ruby should be installed ?
 RUBY_VERSION=2.1.2
@@ -39,17 +42,14 @@ APPLICATION_PATH=$HOME/app
 # What directory should be used for the bare repository ?
 REPOSITORY_PATH=$HOME/git
 
-# What directory should be used for the application processes logs ?
-LOG_PATH=$HOME/log
-
-# ...
-TMP_PATH=$HOME/tmp
+# What directory should be stored log and pid files ?
+VAR_PATH=$HOME/var
 
 # -
 
 echo
 echo "Hostname:"
-echo "=> @$HOSTNAME"
+echo "=> $IP\t$HOSTNAME"
 echo
 echo "Root password:"
 echo "=> $ROOT_PASSWORD"

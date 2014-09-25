@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Create directories for application, repository, logs and temporary files
-mkdir $REPOSITORY_PATH $APPLICATION_PATH $LOG_PATH $TMP_PATH
+mkdir $REPOSITORY_PATH $APPLICATION_PATH $VAR_PATH
 
 # Copy default .env to app directory
 # Note: remember to add .env to your .gitignore
@@ -42,6 +42,9 @@ gem install $GEMS && rbenv rehash
 
 # Fix user home permissions
 chown -R $USERNAME:$USERNAME $HOME
+
+# Allow your user to export, start and stop the app service without password
+echo "$USERNAME ALL = (root) NOPASSWD: /sbin/start, /sbin/stop" >> /etc/sudoers
 
 # If the machine has less then aprox. 1Gb of RAM, swap is needed for Passenger setup
 if [[ $(free | awk '/^Mem:/{print $2}') -lt 900000 ]]; then
