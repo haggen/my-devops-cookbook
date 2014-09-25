@@ -9,7 +9,7 @@ exec 2>&1
 TIME=$(date +%s)
 
 # Go to where the scripts are
-chdir $(dirname $0)
+cd $(dirname $0)
 
 # Require
 source _configuration.sh
