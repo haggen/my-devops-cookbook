@@ -12,7 +12,7 @@ git -C $REPOSITORY_PATH init --bare
 
 # Copy deploy hook and add execute permission
 cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/post-receive
-chmod +x $REPOSITORY_PATH/hooks/post-receive.0
+chmod +x $REPOSITORY_PATH/hooks/post-receive
 
 # Create application directory
 git -C $APPLICATION_PATH init
