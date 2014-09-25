@@ -7,6 +7,7 @@ The list below shows what's already included and what's planned to make into the
 - [x] Reorganize project's file
 - [x] Log setup script
 - [x] Setup monitoring with New Relic unix agent
+- [ ] Automatic security updates
 - [ ] Auto-deploy with post-receive Git hook
 - [ ] Nginx configuration from H5BP
 - [ ] Utility to manage env variables over SSH
