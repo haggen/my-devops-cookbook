@@ -49,7 +49,7 @@ VAR_PATH=$HOME/var
 
 echo
 echo "Hostname:"
-echo "=> $IP\t$HOSTNAME"
+echo "=> $IP $HOSTNAME"
 echo
 echo "Root password:"
 echo "=> $ROOT_PASSWORD"
@@ -57,9 +57,6 @@ echo
 echo "Your user information:"
 echo "=> $USERNAME"
 echo "=> $PASSWORD"
-echo
-echo "Database:"
-echo "=> postgres://app@localhost/app_production"
 echo
 echo "Application repository:"
 echo "=> $USERNAME@$IP:git"
