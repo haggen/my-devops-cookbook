@@ -25,7 +25,7 @@ PORTS="22 80 443"
 HOSTNAME=$(shuf -n 1 ../txt/hostnames.txt)
 
 # What packages should be installed ?
-PACKAGES="build-essential git nodejs npm libssl-dev libcurl4-openssl-dev libreadline-dev newrelic-sysmond"
+PACKAGES="build-essential git nodejs npm libssl-dev libcurl4-openssl-dev libreadline-dev newrelic-sysmond htop"
 
 # New Relic license key
 read -s -e -p 'Paste your New Relic license: (silenced)' NEW_RELIC_LICENSE
