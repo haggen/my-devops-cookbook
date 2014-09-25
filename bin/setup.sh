@@ -46,5 +46,6 @@ source _application.sh
 
 echo
 echo "=> Done in $(($(date +%s) - TIME))s"
+echo "=> Please reboot!!!"
 
 exit 0
