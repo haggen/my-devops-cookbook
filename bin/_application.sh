@@ -46,8 +46,8 @@ chown -R $USERNAME:$USERNAME $HOME
 # Allow your user to export, start and stop the app service without password
 echo "$USERNAME ALL = (root) NOPASSWD: /sbin/start, /sbin/stop" >> /etc/sudoers
 
-# If the machine has less then aprox. 1Gb of RAM, swap is needed for Passenger setup
-if [[ $(free | awk '/^Mem:/{print $2}') -lt 900000 ]]; then
+# Swap space is needed for Passenger setup (it failed even with 1Gb of RAM)
+if [[ $(free | awk '/^Swap:/{print $2}') -eq 0 ]]; then
   dd if=/dev/zero of=/swap bs=1M count=1024
   mkswap /swap
   swapon /swap
