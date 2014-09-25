@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 # Update machine hostname
-hostname $HOSTNAME
+OLDNAME=$(cat /etc/hostname)
+sed -i "s/$OLDNAME/$HOSTNAME/g" /etc/hosts
+sed -i "s/$OLDNAME/$HOSTNAME/g" /etc/hostname
 
 # Update `root` password
 chpasswd <<< "root:$ROOT_PASSWORD"
@@ -18,7 +20,7 @@ echo "$PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
 chown -R $USERNAME:$USERNAME $HOME
 
 # ...
-sed -i -r 's/DEFAULT_FORWARD_POLICY=\".+?\"/DEFAULT_FORWARD_POLICY=\"ALLOW\"/' /etc/default/ufw
+sed -i -r 's/DEFAULT_FORWARD_POLICY=\".+?\"/DEFAULT_FORWARD_POLICY=\"ACCEPT\"/' /etc/default/ufw
 
 # ...
 iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
