@@ -45,6 +45,9 @@ REPOSITORY_PATH=$HOME/git
 # What directory should be stored log and pid files ?
 VAR_PATH=$HOME/var
 
+# Secret key base for Rails session
+SECRET_KEY_BASE=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 128)
+
 # -
 
 echo
