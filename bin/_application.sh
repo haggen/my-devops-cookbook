@@ -5,14 +5,14 @@ mkdir $REPOSITORY_PATH $APPLICATION_PATH $VAR_PATH
 
 # .env file holds environment variables to support the application
 # Copy default template to the application's directory and add your SECRET_KEY_BASE
-cat "$(../app/env)" > $APPLICATION_PATH/.env
+cp ../app/env $APPLICATION_PATH/.env
 echo "SECRET_KEY_BASE=$SECRET_KEY_BASE" >> $APPLICATION_PATH/.env
 
 # Initialize bare repository
 git -C $REPOSITORY_PATH init --bare
 
 # Copy deploy hook to the repository and allow it to be executed
-cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/post-receive
+cp ../git/hooks/post-receive $REPOSITORY_PATH/hooks/post-receive
 chmod +x $REPOSITORY_PATH/hooks/post-receive
 
 # Setup application working tree repository
