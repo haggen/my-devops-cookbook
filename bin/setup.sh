@@ -44,8 +44,10 @@ source _database.sh
 # Setup Git, Ruby and Rails
 source _application.sh
 
+# Housekeeping
+apt-get autoremove
+
 echo
-echo "=> Done in $(($(date +%s) - TIME))s"
-echo "=> Please reboot!!!"
+echo "Done in $(($(date +%s) - TIME))s"
 
 exit 0
