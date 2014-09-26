@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 
-# Create directories for application, repository, logs and temporary files
+# Create directories for application codebase, bare repository and variable files (log and pid)
 mkdir $REPOSITORY_PATH $APPLICATION_PATH $VAR_PATH
 
-# Copy default .env to app directory
-# Note: remember to add .env to your .gitignore
-cp ../app/env $APPLICATION_PATH/.env
+# .env file holds environment variables to support the application
+# Copy default template to the application's directory and add your SECRET_KEY_BASE
+cat "$(../app/env)" > $APPLICATION_PATH/.env
+echo "SECRET_KEY_BASE=$SECRET_KEY_BASE" >> $APPLICATION_PATH/.env
 
-# Create bare repository
+# Initialize bare repository
 git -C $REPOSITORY_PATH init --bare
 
-# Copy deploy hook and add execute permission
+# Copy deploy hook to the repository and allow it to be executed
 cp ../git/hooks/post-receive.0 $REPOSITORY_PATH/hooks/post-receive
 chmod +x $REPOSITORY_PATH/hooks/post-receive
 
-# Create application directory
+# Setup application working tree repository
 git -C $APPLICATION_PATH init
 git -C $APPLICATION_PATH remote add origin $REPOSITORY_PATH
 
-# Clone and install ruby-build
+# Download and install ruby-build
 git clone git://github.com/sstephenson/ruby-build.git /tmp/ruby-build
 cd /tmp/ruby-build
 bash install.sh
@@ -34,13 +35,13 @@ echo 'eval "$(rbenv init -)"' >> $HOME/.bash_profile
 # Load rbenv here
 source $HOME/.bash_profile
 
-# Install required version of Ruby and set it to default
+# Setup required version of Ruby and set it to default
 rbenv install $RUBY_VERSION && rbenv global $RUBY_VERSION
 
-# Install required Gems
+# Install required Gems and reload Gem binaries path
 gem install $GEMS && rbenv rehash
 
-# Fix user home permissions
+# Fix user's home permissions
 chown -R $USERNAME:$USERNAME $HOME
 
 # Swap space is needed for Passenger setup (it failed even with 1Gb of RAM)
