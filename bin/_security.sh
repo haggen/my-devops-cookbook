@@ -2,8 +2,8 @@
 
 # Update hostname
 OLDNAME=$(cat /etc/hostname)
-sed -i "s/$OLDNAME/$HOSTNAME/g" /etc/hosts
-sed -i "s/$OLDNAME/$HOSTNAME/g" /etc/hostname
+sed -i -e "s/$OLDNAME/$HOSTNAME/g" /etc/hosts
+sed -i -e "s/$OLDNAME/$HOSTNAME/g" /etc/hostname
 
 # Change root password
 chpasswd <<< "root:$ROOT_PASSWORD"
