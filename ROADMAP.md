@@ -15,6 +15,7 @@ The list below shows what's already included and what's planned to make into the
 - [ ] Split setup into even smaller chunks (makes it more manageable)
 - [ ] Finish checklists
 - [ ] Better documentation
+- [ ] ...
 - [ ] Install zsh and oh-my-zsh for the custom user
 - [ ] Scripts should check missing configuration
 - [ ] Rollback Git changes when something in the post-receive hook fails

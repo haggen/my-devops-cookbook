@@ -33,6 +33,7 @@ As of this time, the software I use is:
 - [Nginx 1+](http://nginx.org)
 - [PostgreSQL 9+](http://www.postgresql.org)
 - [Redis 2+](http://redis.io)
+- [New Relic](http://www.newrelic.com)
 - [Foreman](https://github.com/ddollar/foreman) (for daemonization)
 - *shell (for automation)
 - [Mandrill](https://mandrillapp.com/) (for email)
