@@ -51,6 +51,7 @@ SECRET_KEY_BASE=$(cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 128)
 # -
 
 echo
+echo
 echo "Hostname:"
 echo "=> $IP $HOSTNAME"
 echo
