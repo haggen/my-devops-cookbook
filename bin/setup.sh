@@ -14,9 +14,14 @@ cd $(dirname $0)
 # Require
 source _configuration.sh
 
-# Set locale
+# Configure locale
 locale-gen en_US en_US.UTF-8
 dpkg-reconfigure locales
+
+# Update hostname
+PREVIOUS_HOSTNAME=$(cat /etc/hostname)
+sed -i -e "s/$PREVIOUS_HOSTNAME/$HOSTNAME/g" /etc/hosts
+sed -i -e "s/$PREVIOUS_HOSTNAME/$HOSTNAME/g" /etc/hostname
 
 # Configure New Relic packages source
 echo deb http://apt.newrelic.com/debian/ newrelic non-free >> /etc/apt/sources.list.d/newrelic.list
@@ -31,7 +36,7 @@ apt-get -y upgrade
 # Install required packages
 apt-get install -y $PACKAGES
 
-# Configure New Relic agent
+# Configure New Relic monitoring agent
 nrsysmond-config --set license_key=$NEW_RELIC_LICENSE
 /etc/init.d/newrelic-sysmond start
 
@@ -45,9 +50,11 @@ source _database.sh
 source _application.sh
 
 # Housekeeping
-apt-get autoremove
+apt-get -y autoremove
 
 echo
-echo "Done in $(($(date +%s) - TIME))s"
+echo "Done!"
+echo "=> $(($(date +%s) - TIME))s"
+echo
 
 exit 0

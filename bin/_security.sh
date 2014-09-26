@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# Update hostname
-OLDNAME=$(cat /etc/hostname)
-sed -i -e "s/$OLDNAME/$HOSTNAME/g" /etc/hosts
-sed -i -e "s/$OLDNAME/$HOSTNAME/g" /etc/hostname
-
 # Change root password
 chpasswd <<< "root:$ROOT_PASSWORD"
 
@@ -18,20 +13,19 @@ echo "$PUBLIC_KEY" >> $HOME/.ssh/authorized_keys
 chown -R $USERNAME:$USERNAME $HOME
 
 # Flush iptables configuration
+iptables -P INPUT ALLOW
+iptables -P OUTPUT ALLOW
+iptables -P FORWARD ALLOW
+iptables -P PREROUTING ALLOW -t nat
 iptables -F
 
-# Setup fail2ban - fail2ban looks for suspicious activity
-apt-get install -y fail2ban
-
 # Configure iptables and export configuration to file
-# At this point we've already installed fail2ban - which add its own
-# iptables rules - so we can safely save those configurations.
+# iptables configuration must be saved BEFORE fail2ban is
+# installed, since it automatically adds its own rules
 iptables -I INPUT 1 -i lo -j ACCEPT
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 3000 -j ACCEPT
-iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 3000
+for P in $PORTS; do iptables -A INPUT -p tcp --dport $P -j ACCEPT; done
+iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port $APPLICATION_PORT
 iptables -A INPUT -j DROP
 
 iptables-save > /etc/iptables.conf
@@ -41,7 +35,10 @@ echo '#!/usr/bin/env bash' > /etc/network/if-up.d/iptables
 echo 'iptables-restore < /etc/iptables.conf' >> /etc/network/if-up.d/iptables
 chmod +x /etc/network/if-up.d/iptables
 
-# Configure remote access
+# Setup fail2ban - fail2ban looks for suspicious activity
+apt-get install -y fail2ban
+
+# Configure SSH
 echo >> /etc/ssh/sshd_config
 echo "PermitRootLogin no" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication no" >> /etc/ssh/sshd_config

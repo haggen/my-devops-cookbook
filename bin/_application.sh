@@ -5,19 +5,25 @@ mkdir $REPOSITORY_PATH $APPLICATION_PATH $VAR_PATH
 
 # .env file holds environment variables to support the application
 # Copy default template to the application's directory and add your SECRET_KEY_BASE
-cp ../app/env $APPLICATION_PATH/.env
+echo "LC_ALL=en_US.UTF-8" > $APPLICATION_PATH/.env
+echo "RAILS_ENV=production" >> $APPLICATION_PATH/.env
+echo "PORT=$APPLICATION_PORT" >> $APPLICATION_PATH/.env
 echo "SECRET_KEY_BASE=$SECRET_KEY_BASE" >> $APPLICATION_PATH/.env
 
 # Initialize bare repository
-git -C $REPOSITORY_PATH init --bare
+cd $REPOSITORY_PATH
+git init . --bare
+cd -
 
 # Copy deploy hook to the repository and allow it to be executed
 cp ../git/hooks/post-receive $REPOSITORY_PATH/hooks/post-receive
 chmod +x $REPOSITORY_PATH/hooks/post-receive
 
 # Setup application working tree repository
-git -C $APPLICATION_PATH init
-git -C $APPLICATION_PATH remote add origin $REPOSITORY_PATH
+cd $APPLICATION_PATH
+git init .
+git remote add origin $REPOSITORY_PATH
+cd -
 
 # Download and install ruby-build
 git clone git://github.com/sstephenson/ruby-build.git /tmp/ruby-build
@@ -43,17 +49,3 @@ gem install $GEMS && rbenv rehash
 
 # Fix user's home permissions
 chown -R $USERNAME:$USERNAME $HOME
-
-# Swap space is needed for Passenger setup (it failed even with 1Gb of RAM)
-if [[ $(free | awk '/^Swap:/{print $2}') -eq 0 ]]; then
-  dd if=/dev/zero of=/swap bs=1M count=1024
-  mkswap /swap
-  swapon /swap
-fi
-
-# Run Passenger Nginx module setup
-passenger-install-nginx-module --auto --auto-download --extra-configure-flags=none --languages ruby --prefix=/opt/nginx
-
-# Configure nginx
-# TODO: Use a modified version of h5bp nginx config files
-#       https://github.com/h5bp/server-configs-nginx
